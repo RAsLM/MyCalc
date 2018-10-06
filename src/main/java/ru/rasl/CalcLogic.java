@@ -1,6 +1,7 @@
 package ru.rasl;
 
 import static ru.rasl.Constant.*;
+
 import java.util.Stack;
 
 public class CalcLogic {
@@ -20,47 +21,46 @@ public class CalcLogic {
                 RPN += expressions.charAt(i);
             } else {
                 priority = standardOperators.get(Character.toString(expressions.charAt(i)));
-                if(priority == 1){
+                if (priority == 1) {
                     stackOperations.push(Character.toString(expressions.charAt(i)));
                 }
-                if(priority > 1){
-                    RPN+=' ';
+                if (priority > 1) {
+                    RPN += ' ';
 
-                    while (!stackOperations.empty()){
-                        if(standardOperators.get(stackOperations.peek()) >= priority){
-                            RPN+=stackOperations.pop();
-                        }else {
+                    while (!stackOperations.empty()) {
+                        if (standardOperators.get(stackOperations.peek()) >= priority) {
+                            RPN += stackOperations.pop();
+                        } else {
                             break;
                         }
                     }
                     stackOperations.push(Character.toString(expressions.charAt(i)));
                 }
 
-                if(priority == -1){
-                    RPN+=' ';
-                    while (standardOperators.get(stackOperations.peek()) != 1){
-                        RPN+=stackOperations.pop();
+                if (priority == -1) {
+                    RPN += ' ';
+                    while (standardOperators.get(stackOperations.peek()) != 1) {
+                        RPN += stackOperations.pop();
                     }
                     stackOperations.pop();
                 }
 
             }
         }
-        while (!stackOperations.empty()){
-            RPN +=stackOperations.pop();
+        while (!stackOperations.empty()) {
+            RPN += stackOperations.pop();
         }
 
         return RPN;
     }
 
     public double RPNtoAnswer(String rpn) {
-        System.out.println(rpn);
         String operand = new String();
         Stack<Double> stack = new Stack<Double>();
         for (int i = 0; i < rpn.length(); i++) {
-            if(rpn.charAt(i) == ' ')continue;
+            if (rpn.charAt(i) == ' ') continue;
 
-            if(!standardOperators.containsKey(Character.toString(rpn.charAt(i)))) {
+            if (!standardOperators.containsKey(Character.toString(rpn.charAt(i)))) {
                 while (rpn.charAt(i) != ' ' && !standardOperators.containsKey(Character.toString(rpn.charAt(i)))) {
                     operand += rpn.charAt(i++);
                     if (i == rpn.length()) break;
@@ -69,19 +69,19 @@ public class CalcLogic {
                 operand = new String();
             }
 
-            if(standardOperators.containsKey(Character.toString(rpn.charAt(i))) && standardOperators.get(Character.toString(rpn.charAt(i))) > 1){
+            if (standardOperators.containsKey(Character.toString(rpn.charAt(i))) && standardOperators.get(Character.toString(rpn.charAt(i))) > 1) {
                 double a = stack.pop(), b = stack.pop();
-                if (rpn.charAt(i) == '+'){
-                    stack.push(a+b);
+                if (rpn.charAt(i) == '+') {
+                    stack.push(a + b);
                 }
-                if (rpn.charAt(i) == '-'){
-                    stack.push(a-b);
+                if (rpn.charAt(i) == '-') {
+                    stack.push(a - b);
                 }
-                if (rpn.charAt(i) == '*'){
-                    stack.push(a*b);
+                if (rpn.charAt(i) == '*') {
+                    stack.push(a * b);
                 }
-                if (rpn.charAt(i) == '/'){
-                    stack.push(a/b);
+                if (rpn.charAt(i) == '/') {
+                    stack.push(a / b);
                 }
             }
         }
