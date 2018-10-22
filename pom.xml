@@ -8,5 +8,11 @@
     <artifactId>MyCalc</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>JUnit</groupId>
+            <artifactId>jUnit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
 </project>

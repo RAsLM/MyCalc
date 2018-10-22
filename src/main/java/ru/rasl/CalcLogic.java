@@ -13,6 +13,7 @@ public class CalcLogic {
 
     public String infixToRPN() {
         String expressions = value.replace(" ", "");
+        expressions = expressions.replaceAll("^-d*|[(]-\\D*","&");
         String RPN = "";
         Stack<String> stackOperations = new Stack<String>();
         int priority;
@@ -39,6 +40,9 @@ public class CalcLogic {
 
                 if (priority == -1) {
                     RPN += ' ';
+                    if(!stackOperations.contains("(")){
+                        continue;
+                    }
                     while (standardOperators.get(stackOperations.peek()) != 1) {
                         RPN += stackOperations.pop();
                     }
@@ -50,7 +54,7 @@ public class CalcLogic {
         while (!stackOperations.empty()) {
             RPN += stackOperations.pop();
         }
-
+        System.out.println(RPN);
         return RPN;
     }
 
@@ -70,6 +74,11 @@ public class CalcLogic {
             }
 
             if (standardOperators.containsKey(Character.toString(rpn.charAt(i))) && standardOperators.get(Character.toString(rpn.charAt(i))) > 1) {
+                if(rpn.charAt(i) == '&'){
+                    double a = stack.pop();
+                    stack.push(a*-1);
+                    continue;
+                }
                 double a = stack.pop(), b = stack.pop();
                 if (rpn.charAt(i) == '+') {
                     stack.push(a + b);

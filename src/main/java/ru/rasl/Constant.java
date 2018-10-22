@@ -18,5 +18,6 @@ public class Constant {
         standardOperators.put("-", 2);
         standardOperators.put("(", 1);
         standardOperators.put(")", -1);
+        standardOperators.put("&", 5);
     }
 }
