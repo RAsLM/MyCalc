@@ -13,7 +13,8 @@ public class CalcLogic {
 
     public String infixToRPN() {
         String expressions = value.replace(" ", "");
-        expressions = expressions.replaceAll("^-d*|[(]-\\D*","&");
+        expressions = expressions.replaceAll("^-d*","&");
+        expressions = expressions.replaceAll("[(]-","(&");
         String RPN = "";
         Stack<String> stackOperations = new Stack<String>();
         int priority;
