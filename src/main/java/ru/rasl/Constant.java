@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constant {
-    static final String GREETING = "<=== Консольный калькулятор ===> \nЭто простой колькулятор без графической оболочки";
+    static final String GREETING = "<=== Консольный калькулятор ===> \nПростой колькулятор без графической оболочки";
+    static final String SupportedOperations = "Поддерживаемые операции: (+, -, /, *)";
     static final String EnterExpression = "Введите выражение";
     static final String ExpressionResult = "Результат выражения";
     public static final Map<String, Integer> standardOperators;
