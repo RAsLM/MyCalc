@@ -4,40 +4,50 @@ package ru.rasl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class CalcLogicTest {
-    @Test
-    public void setValue() {
-
-    }
 
     @Test
     public void infixToRPNTest() {
         CalcLogic calcLogic = new CalcLogic();
 
         List<String> expressions = Arrays.asList(
-                "2+2*2"
+                "2+2*2",
+                "-2+2*2",
+                "234*1+(-3*45)"
         );
-        System.out.println(expressions.toString());
-
-        for (String expression : expressions) {
-            calcLogic.infixToRPN(expression);
-        }
 
         List<String> expecteds = Arrays.asList(
-                "2, 2, 2, *, +"
+                "[2, 2, 2, *, +]",
+                "[2, &, 2, 2, *, +]",
+                "[234, 1, *, 3, &, 45, *, +]"
         );
         for (int i = 0; i < expressions.size(); i++) {
-            Assert.assertEquals(expecteds.get(i), calcLogic.infixToRPN(expressions.get(i)));
+            Assert.assertEquals(expecteds.get(i), calcLogic.infixToRPN(expressions.get(i)).toString());
         }
 
 
     }
 
     @Test
-    public void RPNtoAnswer() {
+    public void RPNtoAnswerTest() {
+        CalcLogic calcLogic = new CalcLogic();
+
+        List<String> list = Arrays.asList(
+                "2, 2, 2, *, +",
+                "2, &, 2, 2, *, +",
+                "234, 1, *, 3, &, 45, *, +"
+        );
+        System.out.println(list.get(0));
+        List<List<String>> expressions = new ArrayList<>(Arrays.asList(list));
+        List<Double> expecteds = Arrays.asList(
+                1.0,
+                2.0,
+                3.0
+        );
+        for (List s: expressions) {
+            System.out.println(s.toString());
+        }
     }
 }

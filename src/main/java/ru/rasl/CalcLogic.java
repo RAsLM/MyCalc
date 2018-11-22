@@ -27,7 +27,7 @@ public class CalcLogic {
                 if ("(".equals(curr)) {
                     stackOperations.push(curr);
                 }
-                if (priority > 1) {
+                if (priority > standardOperators.get("(")) {
                     while (!stackOperations.empty()) {
                         if (standardOperators.get(stackOperations.peek()) >= priority) {
                             RPN.add(stackOperations.pop());
@@ -42,7 +42,7 @@ public class CalcLogic {
                     if(!stackOperations.contains("(")){
                         continue;
                     }
-                    while (standardOperators.get(stackOperations.peek()) != 1) {
+                    while (standardOperators.get(stackOperations.peek()) != standardOperators.get("(")) {
                         RPN.add(stackOperations.pop());
                     }
                     stackOperations.pop();
@@ -55,8 +55,6 @@ public class CalcLogic {
         }
         return RPN;
     }
-
-
     public double RPNtoAnswer(List<String> rpn) {
         Stack<Double> stack = new Stack<Double>();
         for (int i = 0; i < rpn.size(); i++) {
@@ -65,7 +63,7 @@ public class CalcLogic {
                 stack.push(Double.parseDouble(rpn.get(i)));
             }
 
-            if (standardOperators.containsKey(rpn.get(i)) && standardOperators.get(rpn.get(i)) > 1) {
+            if (standardOperators.containsKey(rpn.get(i)) && standardOperators.get(rpn.get(i)) > standardOperators.get("(")) {
                 if(rpn.get(i).equals("&")){
                     double a = stack.pop();
                     stack.push(a*-1);
