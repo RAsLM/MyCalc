@@ -9,7 +9,8 @@ public class Console {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         return reader.readLine();
     }
-    public void write(String constant){
+
+    public void write(String constant) {
         System.out.println(constant);
     }
 }
